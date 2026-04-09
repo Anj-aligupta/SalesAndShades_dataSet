@@ -1,0 +1,248 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.db{padding:1.25rem 0;font-family:var(--font-sans)}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-dot{width:34px;height:34px;border-radius:50%;background:#C2185B;display:flex;align-items:center;justify-content:center}
+.logo-dot svg{width:16px;height:16px}
+.brand-name{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.brand-sub{font-size:11px;color:var(--color-text-secondary)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:11px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.pill.active{background:#C2185B;border-color:#C2185B;color:#fff;font-weight:500}
+.kpi-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+.kpi{background:var(--color-background-secondary);border-radius:10px;padding:.85rem 1rem}
+.kpi-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:5px}
+.kpi-val{font-size:20px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.kpi-delta{font-size:11px;margin-top:5px;display:flex;align-items:center;gap:3px}
+.up{color:#2D9E7A}.down{color:#E24B4A}
+.arr{font-size:9px}
+.row2{display:grid;grid-template-columns:1.4fr 1fr;gap:12px;margin-bottom:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.row4{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.1rem}
+.ct{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.cs{font-size:11px;color:var(--color-text-secondary);margin-bottom:10px}
+.leg{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;font-size:11px;color:var(--color-text-secondary)}
+.leg span{display:flex;align-items:center;gap:4px}
+.sq{width:9px;height:9px;border-radius:2px;display:inline-block}
+.hbar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.hbar-label{font-size:11px;color:var(--color-text-secondary);width:70px;text-align:right;flex-shrink:0}
+.hbar-track{flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:4px;transition:width .4s}
+.hbar-val{font-size:11px;font-weight:500;color:var(--color-text-primary);min-width:44px;text-align:right}
+.funnel-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.funnel-bar{height:26px;border-radius:4px;display:flex;align-items:center;padding:0 8px;transition:width .4s}
+.funnel-lbl{font-size:11px;font-weight:500;white-space:nowrap}
+.funnel-pct{font-size:11px;color:var(--color-text-secondary);margin-left:auto;padding-left:6px;white-space:nowrap}
+.seg-ring-wrap{display:flex;align-items:center;gap:16px}
+.seg-list{flex:1}
+.seg-item{display:flex;align-items:center;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.seg-item:last-child{border-bottom:none}
+.seg-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;flex-shrink:0}
+.seg-name{color:var(--color-text-secondary);flex:1}
+.seg-pct{font-weight:500;color:var(--color-text-primary)}
+.tbl{width:100%;font-size:11px;border-collapse:collapse;table-layout:fixed}
+.tbl th{font-weight:500;color:var(--color-text-secondary);text-align:left;padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.tbl td{padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.tbl tr:last-child td{border:none}
+.badge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500}
+.b-hi{background:#FCE4EC;color:#880E4F}
+.b-md{background:#FFF3E0;color:#E65100}
+.b-lo{background:#E8F5E9;color:#2E7D32}
+</style>
+
+<div class="db">
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" fill="#fff"/><path d="M2 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div><div class="brand-name">Sales &amp; Shades</div><div class="brand-sub">D2C Beauty Analytics · FY 2024</div></div>
+  </div>
+  <div class="filters">
+    <div class="pill active" onclick="filterQ(this,'all')">All Year</div>
+    <div class="pill" onclick="filterQ(this,'q1')">Q1</div>
+    <div class="pill" onclick="filterQ(this,'q2')">Q2</div>
+    <div class="pill" onclick="filterQ(this,'q3')">Q3</div>
+    <div class="pill" onclick="filterQ(this,'q4')">Q4</div>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-label">Gross Revenue</div><div class="kpi-val" id="kGross">₹28.4L</div><div class="kpi-delta up"><span class="arr">▲</span>18.2% vs LY</div></div>
+  <div class="kpi"><div class="kpi-label">Net Revenue</div><div class="kpi-val" id="kNet">₹23.1L</div><div class="kpi-delta up"><span class="arr">▲</span>14.7% vs LY</div></div>
+  <div class="kpi"><div class="kpi-label">Gross Margin</div><div class="kpi-val" id="kMargin">38.4%</div><div class="kpi-delta up"><span class="arr">▲</span>2.1 pts</div></div>
+  <div class="kpi"><div class="kpi-label">Return Rate</div><div class="kpi-val" id="kReturn">12.3%</div><div class="kpi-delta down"><span class="arr">▼</span>Need action</div></div>
+  <div class="kpi"><div class="kpi-label">Repeat Purchase</div><div class="kpi-val" id="kRepeat">41.2%</div><div class="kpi-delta up"><span class="arr">▲</span>Strong loyalty</div></div>
+</div>
+
+<div class="row2">
+  <div class="card">
+    <div class="ct">Monthly revenue trend</div>
+    <div class="cs">Gross vs net revenue (₹ Lakhs)</div>
+    <div class="leg"><span><span class="sq" style="background:#C2185B"></span>Gross</span><span><span class="sq" style="background:#7B1FA2"></span>Net</span></div>
+    <div style="position:relative;height:190px"><canvas id="c-trend"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Revenue by category</div>
+    <div class="cs">Share of gross revenue</div>
+    <div style="position:relative;height:210px"><canvas id="c-cat"></canvas></div>
+  </div>
+</div>
+
+<div class="row3">
+  <div class="card">
+    <div class="ct">Channel performance</div>
+    <div class="cs">Net revenue by channel</div>
+    <div id="hbars" style="margin-top:4px"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Discount impact</div>
+    <div class="cs">Avg discount % by category</div>
+    <div style="position:relative;height:185px"><canvas id="c-disc"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Customer segments</div>
+    <div class="cs">Orders &amp; repeat rate</div>
+    <div style="position:relative;height:185px"><canvas id="c-seg"></canvas></div>
+  </div>
+</div>
+
+<div class="row4">
+  <div class="card">
+    <div class="ct">Conversion funnel</div>
+    <div class="cs">Orders → repeat purchase pipeline</div>
+    <div id="funnel" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Top products by revenue</div>
+    <div class="cs">Gross revenue with return flag</div>
+    <div style="overflow-x:auto;margin-top:4px">
+      <table class="tbl">
+        <thead><tr><th>Product</th><th>Category</th><th style="text-align:right">Revenue</th><th style="text-align:right">Margin</th><th>Returns</th></tr></thead>
+        <tbody id="prodTbl"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const PINK='#C2185B',PURPLE='#7B1FA2',PINK2='#E91E8C',AMBER='#EF9F27',TEAL='#1D9E75',BLUE='#378ADD',CORAL='#D85A30',GRAY='#888780';
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const allData={
+  gross:[2.1,2.3,2.5,2.6,2.4,2.3,2.5,2.7,2.4,2.8,2.6,3.1],
+  net:[1.7,1.9,2.0,2.1,1.9,1.8,2.0,2.2,1.9,2.3,2.1,2.5],
+  cats:{Lipstick:22,Foundation:19,Eyeshadow:18,Skincare:15,Blush:12,Mascara:14},
+  channels:{Instagram:5.8,Website:4.9,Amazon:4.2,Nykaa:3.8,Myntra:2.9,'Offline Store':1.5},
+  discounts:{Lipstick:14,Foundation:11,Eyeshadow:13,Skincare:9,Blush:12,Mascara:10},
+  segs:{labels:['Gen-Z','Millennial','Working Pro','Student','Homemaker'],orders:[220,310,185,165,120],repeat:[48,44,52,36,38]},
+  products:[
+    {n:'Silk Finish Foundation',c:'Foundation',rev:'₹5.2L',margin:'41%',ret:'Hi'},
+    {n:'Smoky Eye Palette',c:'Eyeshadow',rev:'₹4.8L',margin:'38%',ret:'Med'},
+    {n:'Matte Velvet Lip',c:'Lipstick',rev:'₹3.9L',margin:'43%',ret:'Lo'},
+    {n:'Vitamin C Serum',c:'Skincare',rev:'₹3.4L',margin:'45%',ret:'Lo'},
+    {n:'Dewy Glow Foundation',c:'Foundation',rev:'₹3.1L',margin:'37%',ret:'Med'},
+    {n:'Nude Glam Palette',c:'Eyeshadow',rev:'₹2.8L',margin:'35%',ret:'Hi'},
+  ]
+};
+
+const qMap={q1:[0,1,2],q2:[3,4,5],q3:[6,7,8],q4:[9,10,11]};
+let activeQ='all';
+
+function filterQ(el,q){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  activeQ=q;
+  updateTrend();
+}
+
+let trendChart,catChart,discChart,segChart;
+
+function updateTrend(){
+  const idxs=activeQ==='all'?[...Array(12).keys()]:qMap[activeQ];
+  const gl=idxs.map(i=>months[i]);
+  const gd=idxs.map(i=>allData.gross[i]);
+  const nd=idxs.map(i=>allData.net[i]);
+  if(trendChart){trendChart.data.labels=gl;trendChart.data.datasets[0].data=gd;trendChart.data.datasets[1].data=nd;trendChart.update();}
+}
+
+function initCharts(){
+  const idxs=[...Array(12).keys()];
+  trendChart=new Chart(document.getElementById('c-trend'),{
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Gross',data:allData.gross,borderColor:PINK,backgroundColor:'rgba(194,24,91,0.07)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:PINK},
+      {label:'Net',data:allData.net,borderColor:PURPLE,backgroundColor:'rgba(123,31,162,0.05)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:PURPLE}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{color:'#888',font:{size:10},callback:v=>v.toFixed(1)+'L'},grid:{color:'rgba(128,128,128,0.1)'}},x:{ticks:{color:'#888',font:{size:10}},grid:{display:false}}}}
+  });
+
+  const catKeys=Object.keys(allData.cats);
+  const catVals=Object.values(allData.cats);
+  const catColors=[PINK,PURPLE,PINK2,AMBER,TEAL,CORAL];
+  catChart=new Chart(document.getElementById('c-cat'),{
+    type:'doughnut',
+    data:{labels:catKeys,datasets:[{data:catVals,backgroundColor:catColors,borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{display:true,position:'right',labels:{font:{size:11},boxWidth:10,color:'#666',padding:8}}}}
+  });
+
+  const discKeys=Object.keys(allData.discounts);
+  const discVals=Object.values(allData.discounts);
+  discChart=new Chart(document.getElementById('c-disc'),{
+    type:'bar',
+    data:{labels:discKeys,datasets:[{data:discVals,backgroundColor:[PINK,PURPLE,PINK2,AMBER,TEAL,CORAL],borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{color:'#888',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(128,128,128,0.1)'}},x:{ticks:{color:'#888',font:{size:10},maxRotation:30},grid:{display:false}}}}
+  });
+
+  const segColors=[PINK,PURPLE,AMBER,TEAL,CORAL];
+  segChart=new Chart(document.getElementById('c-seg'),{
+    type:'bar',
+    data:{
+      labels:allData.segs.labels,
+      datasets:[
+        {label:'Orders',data:allData.segs.orders,backgroundColor:segColors.map(c=>c+'99'),borderRadius:4,yAxisID:'y'},
+        {label:'Repeat %',data:allData.segs.repeat,type:'line',borderColor:PINK,pointBackgroundColor:PINK,tension:0.4,yAxisID:'y1',pointRadius:4}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+      y:{ticks:{color:'#888',font:{size:10}},grid:{color:'rgba(128,128,128,0.1)'}},
+      y1:{position:'right',ticks:{color:'#888',font:{size:10},callback:v=>v+'%'},grid:{display:false}},
+      x:{ticks:{color:'#888',font:{size:9},maxRotation:20},grid:{display:false}}
+    }}
+  });
+
+  const maxCh=Math.max(...Object.values(allData.channels));
+  const chColors=[PINK,PURPLE,PINK2,AMBER,TEAL,CORAL];
+  const hb=document.getElementById('hbars');
+  Object.entries(allData.channels).forEach(([ch,val],i)=>{
+    const pct=Math.round(val/maxCh*100);
+    hb.innerHTML+=`<div class="hbar-row"><div class="hbar-label">${ch}</div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${chColors[i]}"></div></div><div class="hbar-val">₹${val}L</div></div>`;
+  });
+
+  const fSteps=[
+    {lbl:'Total orders',val:1000,pct:100},
+    {lbl:'Completed delivery',val:940,pct:94},
+    {lbl:'Not returned',val:877,pct:87.7},
+    {lbl:'Repeat purchase',val:412,pct:41.2},
+    {lbl:'Brand advocates',val:180,pct:18},
+  ];
+  const fn=document.getElementById('funnel');
+  const fColors=[PINK,PURPLE,PINK2,AMBER,TEAL];
+  fSteps.forEach((s,i)=>{
+    const w=Math.round(40+s.pct*0.58);
+    fn.innerHTML+=`<div class="funnel-row"><div class="funnel-bar" style="width:${w}%;background:${fColors[i]}22;border-left:3px solid ${fColors[i]}"><span class="funnel-lbl" style="color:${fColors[i]};font-size:11px">${s.lbl}</span><span class="funnel-pct" style="color:${fColors[i]}">${s.val.toLocaleString()} · ${s.pct}%</span></div></div>`;
+  });
+
+  const tb=document.getElementById('prodTbl');
+  allData.products.forEach(p=>{
+    const bc=p.ret==='Hi'?'b-hi':p.ret==='Med'?'b-md':'b-lo';
+    const bl=p.ret==='Hi'?'High':p.ret==='Med'?'Med':'Low';
+    tb.innerHTML+=`<tr><td style="font-weight:500">${p.n}</td><td style="color:#888">${p.c}</td><td style="text-align:right;font-weight:500">${p.rev}</td><td style="text-align:right;color:#2D9E7A">${p.margin}</td><td><span class="badge ${bc}">${bl}</span></td></tr>`;
+  });
+}
+
+initCharts();
+</script>
