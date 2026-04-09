@@ -1,4 +1,6 @@
 # 📊 Sales & Shades — Business Analytics Dashboard
+Dashboard - file:///C:/Users/asus/Downloads/sales_shades_powerbi_dashboard.html
+
 
 ## 🚀 Project Overview
 
